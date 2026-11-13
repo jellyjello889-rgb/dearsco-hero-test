@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>DEARSCO | The Mineral Ritual</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ede6dd;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .dearsco-story {
+      position: relative;
+      height: 500vh;
+    }
+
+    .dearsco-stage {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100svh;
+      overflow: hidden;
+      background: #e6ded5;
+    }
+
+    .dearsco-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .dearsco-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(30, 26, 24, 0.36) 0%,
+        rgba(30, 26, 24, 0.06) 80%
+      );
+      pointer-events: none;
+    }
+
+    .dearsco-brand {
+      position: absolute;
+      top: 7%;
+      left: 7%;
+      z-index: 2;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 5px;
+    }
+
+    .dearsco-copy {
+      position: absolute;
+      top: 43%;
+      left: 8%;
+      width: min(640px, 84%);
+      transform: translateY(-50%);
+      z-index: 2;
+      color: white;
+      text-shadow: 0 2px 16px rgba(0,0,0,.22);
+    }
+
+    .dearsco-eyebrow {
+      font-size: 12px;
+      letter-spacing: 4px;
+      line-height: 1.6;
+    }
+
+    .dearsco-copy h1 {
+      margin: 15px 0;
+      font-size: clamp(38px, 7vw, 96px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: .02em;
+    }
+
+    .dearsco-description {
+      font-size: clamp(13px, 1.4vw, 17px);
+      line-height: 1.8;
+    }
+
+    .dearsco-button {
+      position: absolute;
+      bottom: 13%;
+      left: 8%;
+      z-index: 3;
+      padding: 15px 25px;
+      border: 1px solid rgba(255,255,255,.9);
+      color: white;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-decoration: none;
+      transition: background .3s, color .3s;
+    }
+
+    .dearsco-button:hover {
+      background: white;
+      color: #37322e;
+    }
+
+    .dearsco-footer {
+      position: absolute;
+      bottom: 5%;
+      left: 8%;
+      right: 8%;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .dearsco-next {
+      min-height: 65vh;
+      padding: 90px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #49413b;
+    }
+
+    .dearsco-next h2 {
+      font-size: clamp(32px, 5vw, 72px);
+      font-weight: 400;
+    }
+
+    .dearsco-next p {
+      letter-spacing: 3px;
+    }
+
+    @media (max-width: 767px) {
+      .dearsco-story {
+        height: 100svh;
+      }
+
+      .dearsco-brand {
+        left: 7%;
+      }
+
+      .dearsco-copy {
+        left: 7%;
+        top: 40%;
+        width: 86%;
+      }
+
+      .dearsco-copy h1 {
+        font-size: 43px;
+      }
+
+      .dearsco-button {
+        left: 7%;
+        bottom: 15%;
+      }
+
+      .dearsco-footer {
+        left: 7%;
+        right: 7%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dearsco-story {
+        height: 100svh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 스크롤 시네마틱 히어로 -->
+  <section class="dearsco-story" id="dearsco-story">
+
+    <div class="dearsco-stage">
+
+      <video
+        id="dearsco-video"
+        class="dearsco-video"
+        muted
+        playsinline
+        preload="auto"
+        poster="블랙 영상 썸네일.png">
+
+        <source
+          src="블랙 23초_1080.mp4"
+          type="video/mp4">
+
+      </video>
+
+      <div class="dearsco-overlay"></div>
+
+      <div class="dearsco-brand">
+        DEARSCO
+      </div>
+
+      <div class="dearsco-copy">
+
+        <p class="dearsco-eyebrow" id="scene-label">
+          THE MINERAL RITUAL
+        </p>
+
+        <h1 id="scene-title">
+          I AM MUD
+        </h1>
+
+        <p class="dearsco-description" id="scene-desc">
+          Nature-inspired care for your beloved companions.
+        </p>
+
+      </div>
+
+      <a
+        class="dearsco-button"
+        href="https://dearsco.com/">
+        DISCOVER DEARSCO
+      </a>
+
+      <div class="dearsco-footer">
+        <span>SCROLL TO EXPLORE ↓</span>
+        <span id="scene-counter">01 / 05</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 영상 이후 컬렉션 소개 -->
+  <section class="dearsco-next">
+    <div>
+      <p>DEARSCO</p>
+      <h2>THE I AM MUD COLLECTION</h2>
+      <p>BLACK · WHITE · PINK · GREEN</p>
+    </div>
+  </section>
+
+  <!-- 스크롤 애니메이션 라이브러리 -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+  <script>
+    (function () {
+      const video = document.getElementById("dearsco-video");
+      const story = document.getElementById("dearsco-story");
+
+      const label = document.getElementById("scene-label");
+      const title = document.getElementById("scene-title");
+      const desc = document.getElementById("scene-desc");
+      const counter = document.getElementById("scene-counter");
+
+      const scenes = [
+        {
+          label: "THE MINERAL RITUAL",
+          title: "I AM MUD",
+          desc: "Nature-inspired care for your beloved companions."
+        },
+        {
+          label: "THE ESSENCE OF NATURE",
+          title: "ROSE WATER",
+          desc: "A delicate expression of rose water."
+        },
+        {
+          label: "THE SCENT OF BLANC-D",
+          title: "BLANC-D",
+          desc: "Soft peach, green tea and floral notes."
+        },
+        {
+          label: "MINERAL ALCHEMY",
+          title: "INSPIRED BY MINERALS",
+          desc: "An expression inspired by mineral care."
+        },
+        {
+          label: "DEARSCO",
+          title: "I AM MUD — BLACK",
+          desc: "Discover the BLACK collection."
+        }
+      ];
+
+      let currentScene = -1;
+
+      function updateScene(progress) {
+        const index = Math.min(
+          4,
+          Math.max(0, Math.floor(progress * scenes.length))
+        );
+
+        if (currentScene === index) return;
+
+        currentScene = index;
+        const scene = scenes[index];
+
+        label.textContent = scene.label;
+        title.textContent = scene.title;
+        desc.textContent = scene.desc;
+
+        counter.textContent =
+          String(index + 1).padStart(2, "0") + " / 05";
+      }
+
+      updateScene(0);
+
+      const mobile = window.matchMedia(
+        "(max-width: 767px)"
+      ).matches;
+
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (reducedMotion) {
+        video.pause();
+        return;
+      }
+
+      if (mobile || !window.gsap || !window.ScrollTrigger) {
+        video.loop = true;
+        video.autoplay = true;
+
+        video.play().catch(function () {});
+        return;
+      }
+
+      gsap.registerPlugin(ScrollTrigger);
+      video.pause();
+
+      let targetProgress = 0;
+      let frameScheduled = false;
+
+      function seekVideo() {
+        frameScheduled = false;
+
+        if (video.readyState < 1 || video.seeking) return;
+
+        const duration = video.duration;
+
+        if (!Number.isFinite(duration) || duration <= 0) {
+          return;
+        }
+
+        const wanted = Math.min(
+          targetProgress * duration,
+          Math.max(0, duration - 0.05)
+        );
+
+        if (Math.abs(video.currentTime - wanted) > 0.07) {
+          try {
+            video.currentTime = wanted;
+          } catch (e) {}
+        }
+      }
+
+      function requestSeek() {
+        if (frameScheduled) return;
+
+        frameScheduled = true;
+        requestAnimationFrame(seekVideo);
+      }
+
+      video.addEventListener("seeked", requestSeek);
+      video.addEventListener("loadedmetadata", requestSeek);
+
+      ScrollTrigger.create({
+        trigger: story,
+        start: "top top",
+        end: "bottom bottom",
+        onUpdate: function (self) {
+          targetProgress = self.progress;
+          updateScene(self.progress);
+          requestSeek();
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
