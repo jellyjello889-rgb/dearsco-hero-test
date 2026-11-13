@@ -12,17 +12,20 @@
   box-sizing: border-box;
 }
 
-html, body {
+html {
   margin: 0;
-  padding: 0;
+}
+
+body {
+  margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   background: #eae1d7;
 }
 
-/* 하나의 스크롤 히어로 */
+/* 전체 화면 히어로 */
 .ds-story {
   position: relative;
-  height: 240vh;
+  height: 220vh;
 }
 
 .ds-stage {
@@ -35,8 +38,9 @@ html, body {
   background: #eae1d7;
 }
 
-/* 4초 썸네일을 첫 화면에 표시 */
-.ds-poster {
+/* 새로운 4초 썸네일 */
+.ds-poster,
+.ds-video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -44,127 +48,113 @@ html, body {
   object-fit: cover;
 }
 
-/* 기존 23초 영상 */
-.ds-video,
-.ds-product-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.ds-poster {
+  z-index: 0;
 }
 
 .ds-video {
+  z-index: 1;
   opacity: 0;
+  transition: opacity .35s ease;
 }
 
 .ds-video.ready {
   opacity: 1;
 }
 
-/* 마지막 제품 장면도 같은 화면 */
-.ds-product-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  opacity: 0;
-  visibility: hidden;
-  background: #eae1d7;
-  transition:
-    opacity .45s ease,
-    visibility .45s ease;
-}
-
-.ds-product-layer.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.ds-product-video {
-  opacity: 0;
-}
-
-.ds-product-video.ready {
-  opacity: 1;
-}
-
-/* 텍스트 가독성 */
+/* 텍스트를 위한 은은한 음영 */
 .ds-overlay {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 2;
   background: linear-gradient(
     90deg,
-    rgba(40,32,27,.38),
-    rgba(40,32,27,0) 85%
+    rgba(35,30,26,.35),
+    rgba(35,30,26,.08) 65%,
+    transparent
   );
   pointer-events: none;
 }
 
+/* 브랜드 로고 */
 .ds-brand {
   position: absolute;
-  left: 7%;
-  top: 7%;
   z-index: 5;
+  top: 7%;
+  left: 7%;
   color: white;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 5px;
-  text-shadow: 0 2px 10px #0004;
 }
 
+/* 좌측 카피 */
 .ds-copy {
   position: absolute;
-  left: 8%;
-  top: 44%;
-  width: min(650px,83%);
-  transform: translateY(-50%);
   z-index: 5;
+  left: 8%;
+  top: 45%;
+  transform: translateY(-50%);
+  width: min(560px, 82%);
   color: white;
-  text-shadow: 0 2px 14px #0005;
+  text-shadow: 0 2px 12px rgba(0,0,0,.22);
+  transition: opacity .3s ease;
 }
 
 .ds-label {
   font-size: 12px;
-  letter-spacing: 4px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  line-height: 1.6;
 }
 
 .ds-copy h1 {
-  font-size: clamp(35px,6vw,82px);
-  line-height: 1.12;
+  font-size: clamp(28px,4.5vw,60px);
+  line-height: 1.15;
   font-weight: 400;
-  margin: 16px 0;
+  margin: 15px 0;
+  letter-spacing: .01em;
 }
 
 .ds-desc {
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.8;
+  letter-spacing: .02em;
 }
 
+/* 마지막 버튼 */
 .ds-button {
   position: absolute;
+  z-index: 6;
   left: 8%;
   bottom: 13%;
-  z-index: 6;
-  display: none;
-  padding: 15px 25px;
+  padding: 14px 24px;
+  border: 1px solid rgba(255,255,255,.85);
   color: white;
-  border: 1px solid white;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 2px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity .5s ease,
+    transform .5s ease,
+    visibility .5s ease;
 }
 
 .ds-button.visible {
-  display: inline-block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .ds-footer {
   position: absolute;
+  z-index: 5;
   left: 8%;
   right: 8%;
   bottom: 5%;
-  z-index: 5;
   display: flex;
   justify-content: space-between;
   color: white;
@@ -172,7 +162,7 @@ html, body {
   letter-spacing: 2px;
 }
 
-/* 영상 이후 컬렉션 영역 */
+/* 다음 컬렉션 영역 */
 .ds-collection {
   min-height: 65vh;
   padding: 80px 20px;
@@ -185,18 +175,19 @@ html, body {
 }
 
 .ds-collection h2 {
+  font-size: clamp(30px,5vw,60px);
   font-weight: 400;
-  font-size: clamp(30px,5vw,65px);
 }
 
 .ds-collection p {
   letter-spacing: 3px;
+  font-size: 12px;
 }
 
 /* 모바일 */
 @media (max-width:767px) {
   .ds-story {
-    height: 230svh;
+    height: 200svh;
   }
 
   .ds-copy {
@@ -205,7 +196,7 @@ html, body {
   }
 
   .ds-copy h1 {
-    font-size: 40px;
+    font-size: 30px;
   }
 
   .ds-brand,
@@ -217,6 +208,10 @@ html, body {
     left: 7%;
     right: 7%;
   }
+
+  .ds-desc {
+    font-size: 13px;
+  }
 }
 
 @media (prefers-reduced-motion:reduce) {
@@ -224,7 +219,9 @@ html, body {
     height: 100svh;
   }
 
-  .ds-product-layer {
+  .ds-video,
+  .ds-button,
+  .ds-copy {
     transition: none;
   }
 }
@@ -236,13 +233,13 @@ html, body {
 <section class="ds-story" id="ds-story">
   <div class="ds-stage">
 
-    <!-- 새로운 4초 썸네일 -->
+    <!-- 4초 시점의 새 썸네일 -->
     <img
       class="ds-poster"
       src="black-poster-4s.png"
       alt="DEARSCO mineral ritual">
 
-    <!-- 원본 23초 영상: 4초부터 시작 -->
+    <!-- 기존 원본 영상 그대로 사용 -->
     <video
       id="ds-film"
       class="ds-video"
@@ -254,35 +251,14 @@ html, body {
       <source
         src="블랙 23초_1080.mp4"
         type="video/mp4">
+
     </video>
-
-    <!-- 마지막 제품 화면 -->
-    <div
-      class="ds-product-layer"
-      id="product-layer">
-
-      <video
-        id="ds-product-film"
-        class="ds-product-video"
-        muted
-        playsinline
-        preload="auto">
-
-        <source
-          src="블랙 23초_1080.mp4"
-          type="video/mp4">
-      </video>
-
-    </div>
 
     <div class="ds-overlay"></div>
 
-    <div class="ds-brand">
-      DEARSCO
-    </div>
+    <div class="ds-brand">DEARSCO</div>
 
     <div class="ds-copy">
-
       <p class="ds-label" id="ds-label">
         THE MINERAL RITUAL
       </p>
@@ -294,19 +270,18 @@ html, body {
       <p class="ds-desc" id="ds-desc">
         Nature-inspired care for your beloved companions.
       </p>
-
     </div>
 
     <a
-      id="ds-button"
+      href="https://dearsco.com/"
       class="ds-button"
-      href="https://dearsco.com/">
+      id="ds-button">
       DISCOVER DEARSCO
     </a>
 
     <div class="ds-footer">
       <span>SCROLL TO DISCOVER ↓</span>
-      <span id="ds-counter">01 / 05</span>
+      <span id="ds-counter">01 / 04</span>
     </div>
 
   </div>
@@ -324,113 +299,87 @@ html, body {
 <script>
 (function () {
 
-  const video =
-    document.getElementById("ds-film");
+  const video = document.getElementById("ds-film");
+  const story = document.getElementById("ds-story");
 
-  const productVideo =
-    document.getElementById("ds-product-film");
+  const label = document.getElementById("ds-label");
+  const title = document.getElementById("ds-title");
+  const desc = document.getElementById("ds-desc");
+  const counter = document.getElementById("ds-counter");
+  const button = document.getElementById("ds-button");
 
-  const productLayer =
-    document.getElementById("product-layer");
-
-  const story =
-    document.getElementById("ds-story");
-
-  const title =
-    document.getElementById("ds-title");
-
-  const label =
-    document.getElementById("ds-label");
-
-  const desc =
-    document.getElementById("ds-desc");
-
-  const counter =
-    document.getElementById("ds-counter");
-
-  const button =
-    document.getElementById("ds-button");
-
-
-  /* 영상 재생 구간 설정 */
+  /*
+   * 여기서 영상 구간을 변경할 수 있어.
+   *
+   * 4초부터 시작
+   * 17초에서 종료
+   *
+   * 원본 MP4는 수정하지 않음
+   */
   const STORY_START = 4.0;
-  const STORY_END = 18.4;
-  const PRODUCT_FRAME = 22.5;
+  const STORY_END = 17.0;
 
-
-  /* 5개 장면의 문구 */
+  /*
+   * 장면별 문구
+   * 추후 이 부분의 글자만 변경 가능
+   */
   const scenes = [
     {
-      title: "I AM MUD",
       label: "THE MINERAL RITUAL",
+      title: "I AM MUD",
       desc: "Nature-inspired care for your beloved companions."
     },
     {
-      title: "ROSE WATER",
       label: "THE ESSENCE OF NATURE",
+      title: "ROSE WATER",
       desc: "A delicate expression of rose water."
     },
     {
-      title: "BLANC-D",
       label: "THE SCENT",
+      title: "BLANC-D",
       desc: "Soft peach, green tea and floral notes."
     },
     {
-      title: "INSPIRED BY MINERALS",
-      label: "MINERAL ALCHEMY",
-      desc: "An expression inspired by mineral care."
-    },
-    {
-      title: "I AM MUD — BLACK",
-      label: "DEARSCO",
-      desc: "Discover the BLACK collection."
+      label: "INSPIRED BY NATURE",
+      title: "THE MINERAL RITUAL",
+      desc: "Discover the beauty of natural inspiration."
     }
   ];
 
-
-  let activeScene = -1;
+  let currentScene = -1;
 
   function showScene(index) {
+    index = Math.max(
+      0,
+      Math.min(scenes.length - 1, index)
+    );
 
-    index = Math.max(0, Math.min(4,index));
+    if (index === currentScene) return;
 
-    if (index === activeScene) return;
+    currentScene = index;
 
-    activeScene = index;
-
-    const scene = scenes[index];
-
-    title.textContent = scene.title;
-    label.textContent = scene.label;
-    desc.textContent = scene.desc;
+    label.textContent = scenes[index].label;
+    title.textContent = scenes[index].title;
+    desc.textContent = scenes[index].desc;
 
     counter.textContent =
-      String(index + 1).padStart(2,"0") + " / 05";
-
-    const isProduct = index === 4;
-
-    productLayer.classList.toggle(
-      "visible", isProduct
-    );
-
-    button.classList.toggle(
-      "visible", isProduct
-    );
+      String(index + 1).padStart(2, "0") +
+      " / 04";
   }
-
 
   showScene(0);
 
-
-  /* 첫 영상의 시작 위치를 4초로 지정 */
+  /*
+   * 스크롤에 따라 4초~17초만 탐색
+   */
   video.pause();
 
   let targetTime = STORY_START;
-  let frameScheduled = false;
   let firstFrameReady = false;
+  let frameScheduled = false;
+  let scrollProgress = 0;
 
   function seekVideo() {
-
     frameScheduled = false;
 
     if (video.readyState < 1 || video.seeking) {
@@ -443,15 +392,20 @@ html, body {
       return;
     }
 
-    const wanted = Math.min(
-      Math.max(STORY_START,targetTime),
-      Math.min(STORY_END,duration - .1)
+    const end = Math.min(
+      STORY_END,
+      duration - 0.1
     );
 
-    if (Math.abs(video.currentTime - wanted) > .07) {
+    const wanted = Math.max(
+      STORY_START,
+      Math.min(targetTime, end)
+    );
+
+    if (Math.abs(video.currentTime - wanted) > 0.05) {
       try {
         video.currentTime = wanted;
-      } catch(e) {}
+      } catch (e) {}
     }
   }
 
@@ -467,9 +421,12 @@ html, body {
     scheduleSeek
   );
 
-  video.addEventListener("seeked", function() {
+  video.addEventListener("seeked", function () {
 
-    if (!firstFrameReady) {
+    if (
+      !firstFrameReady &&
+      Math.abs(video.currentTime - STORY_START) < 0.25
+    ) {
       firstFrameReady = true;
       video.classList.add("ready");
     }
@@ -481,56 +438,43 @@ html, body {
     scheduleSeek();
   }
 
+  /*
+   * 마지막 15%는 영상을 멈춰
+   * 브랜드 메시지를 보여주는 구간
+   */
+  function updateProgress(progress) {
 
-  /* 제품 프레임 미리 준비 */
-  productVideo.pause();
-
-  let productReady = false;
-
-  function prepareProduct() {
-
-    const duration = productVideo.duration;
-
-    if (!Number.isFinite(duration) || duration <= 0) {
-      return;
-    }
-
-    const time = Math.min(
-      PRODUCT_FRAME,
-      duration - .1
+    scrollProgress = Math.max(
+      0,
+      Math.min(1, progress)
     );
 
-    try {
-      productVideo.currentTime = time;
-    } catch(e) {}
+    const videoProgress = Math.min(
+      scrollProgress / 0.85,
+      1
+    );
+
+    targetTime =
+      STORY_START +
+      videoProgress * (STORY_END - STORY_START);
+
+    const index = Math.min(
+      3,
+      Math.floor(videoProgress * 4)
+    );
+
+    showScene(index);
+
+    button.classList.toggle(
+      "visible",
+      scrollProgress >= 0.86
+    );
+
+    scheduleSeek();
   }
 
-  productVideo.addEventListener(
-    "loadedmetadata",
-    prepareProduct
-  );
-
-  productVideo.addEventListener(
-    "seeked",
-    function () {
-
-      if (!productReady) {
-        productReady = true;
-        productVideo.classList.add("ready");
-      }
-
-      productVideo.pause();
-    }
-  );
-
-  if (productVideo.readyState >= 1) {
-    prepareProduct();
-  }
-
-
-  /* 움직임 감소 설정 */
   const reduced = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
+    "(prefers-reduced-motion:reduce)"
   ).matches;
 
   if (reduced) {
@@ -538,66 +482,53 @@ html, body {
     return;
   }
 
+  /*
+   * GSAP 스크롤 연결
+   * 장면 강제 점프 효과 제거
+   */
+  if (window.gsap && window.ScrollTrigger) {
 
-  /* GSAP을 불러오지 못한 경우 */
-  if (!window.gsap || !window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
 
-    video.addEventListener(
-      "loadedmetadata",
-      function () {
-        video.currentTime = STORY_START;
+    ScrollTrigger.create({
+      trigger: story,
+      start: "top top",
+      end: "bottom bottom",
+
+      onUpdate: function (self) {
+        updateProgress(self.progress);
+      },
+
+      onRefresh: function (self) {
+        updateProgress(self.progress);
       }
-    );
+    });
 
-    return;
-  }
+  } else {
 
+    /*
+     * 외부 스크립트 로드 실패 시
+     * 일반 스크롤로 대체
+     */
+    function fallbackScroll() {
+      const available =
+        story.offsetHeight - window.innerHeight;
 
-  gsap.registerPlugin(ScrollTrigger);
+      const progress = available > 0
+        ? -story.getBoundingClientRect().top / available
+        : 0;
 
-
-  /* 스크롤과 영상 시간 연결 */
-  ScrollTrigger.create({
-
-    trigger: story,
-
-    start: "top top",
-
-    end: "bottom bottom",
-
-    snap: {
-      snapTo: [0,.2,.4,.6,.8,1],
-      duration: {min:.12,max:.25},
-      delay: .07,
-      ease: "power1.inOut"
-    },
-
-    onUpdate: function(self) {
-
-      const progress = self.progress;
-
-      const index = Math.min(
-        4,
-        Math.floor(progress * 5)
-      );
-
-      showScene(index);
-
-      if (index < 4) {
-
-        const storyProgress =
-          Math.min(progress / .8,1);
-
-        targetTime =
-          STORY_START +
-          storyProgress *
-          (STORY_END - STORY_START);
-
-        scheduleSeek();
-      }
+      updateProgress(progress);
     }
 
-  });
+    window.addEventListener(
+      "scroll",
+      fallbackScroll,
+      { passive: true }
+    );
+
+    fallbackScroll();
+  }
 
 })();
 </script>
